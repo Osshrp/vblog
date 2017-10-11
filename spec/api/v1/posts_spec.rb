@@ -11,7 +11,7 @@ describe 'Posts API' do
     context 'authenticated' do
       let(:access_token) { create(:access_token) }
       let!(:posts) { create_list(:post, 2) }
-      let(:my_post) { posts.first }
+      let!(:my_post) { posts.first }
       let!(:comment) { create(:comment, post: my_post) }
 
       before { get '/api/v1/posts', as: :json, params: {access_token: access_token.token} }
@@ -44,6 +44,7 @@ describe 'Posts API' do
 
   describe 'GET /show' do
     let(:my_post) { create(:post) }
+    let!(:comment) { create(:comment, post: my_post) }
 
     it_behaves_like 'API unauthenticable' do
       let(:request_path) { api_v1_post_path(my_post) }
@@ -52,33 +53,29 @@ describe 'Posts API' do
 
     context 'authenticated' do
       let(:access_token) { create(:access_token) }
-      before do
-        file = File.open("#{Rails.root}/spec/spec_helper.rb")
-        my_post.attachments.create(file: file)
-      end
       before { get api_v1_post_path(my_post), as: :json, params: {access_token: access_token.token} }
 
       it 'returns 200 status code' do
         expect(response).to be_success
       end
 
-      %w(id title body created_at updated_at rating).each do |attr|
+      %w(id title body published_at created_at updated_at).each do |attr|
         it "post object contains #{attr}" do
           expect(response.body).
             to be_json_eql(my_post.send(attr.to_sym).to_json).at_path("post/#{attr}")
         end
       end
 
-      context 'posts' do
+      context 'comments' do
         it 'included in post object' do
-          expect(response.body).to have_json_size(1).at_path("post/posts")
+          expect(response.body).to have_json_size(1).at_path("post/comments")
         end
 
         %w(id body created_at updated_at).each do |attr|
           it "contains #{attr}" do
             expect(response.body).
-              to be_json_eql(my_post.send(attr.to_sym).to_json).
-                at_path("post/posts/0/#{attr}")
+              to be_json_eql(my_post.comments.first.send(attr.to_sym).to_json).
+                at_path("post/comments/0/#{attr}")
           end
         end
       end
@@ -111,7 +108,7 @@ describe 'Posts API' do
         expect { post api_v1_posts_path, params }.to change(Post.all, :count).by(1)
       end
 
-      %w(id title body created_at updated_at rating).each do |attr|
+      %w(id title body created_at updated_at).each do |attr|
         it "post object contains #{attr}" do
           post api_v1_posts_path, params
           expect(response.body).
