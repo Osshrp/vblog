@@ -24,9 +24,11 @@ html lang="en"
           a.navbar-brand href="#"Vblog
           .navbar-collapse.collapse.navbar-responsive-collapse
             ul.nav.navbar-nav
-              li= link_to "Link 1", "/path1"
-              li= link_to "Link 2", "/path2"
-              li= link_to "Link 3", "/path3"
+              - if user_signed_in?
+                li= link_to 'Выйти', destroy_user_session_path, method: :delete
+                li= link_to current_user.email, '#'
+              - else
+                li= link_to 'Войти', new_user_session_path
 
     .container
       .row
