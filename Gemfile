@@ -42,6 +42,7 @@ gem 'twitter-bootstrap-rails'
 gem 'responders', '~> 2.0'
 gem 'will_paginate', '~> 3.1.0'
 gem 'doorkeeper'
+gem 'active_model_serializers', '~> 0.10.4'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

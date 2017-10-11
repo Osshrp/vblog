@@ -20,16 +20,11 @@ describe 'Posts API' do
         let(:resources_name) { 'posts' }
       end
 
-      %w(id title body created_at updated_at).each do |attr|
+      %w(id title body published_at created_at updated_at).each do |attr|
         it "post object contains #{attr}" do
           expect(response.body).
             to be_json_eql(my_post.send(attr.to_sym).to_json).at_path("posts/0/#{attr}")
         end
-      end
-
-      it 'post object contains short_title' do
-        expect(response.body).
-          to be_json_eql(my_post.title.truncate(10).to_json).at_path("posts/0/short_title")
       end
 
       context 'comments' do
