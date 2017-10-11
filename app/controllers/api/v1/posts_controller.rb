@@ -10,6 +10,7 @@ class Api::V1::PostsController < Api::V1::BaseController
   end
 
   def create
+    post_params[:published_at] ||= Time.zone.now
     @post = Post.create(post_params.merge(user: current_resource_owner))
     respond_with(:api, :v1, @post, serializer: SinglePostSerializer)
   end
