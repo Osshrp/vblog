@@ -4,12 +4,9 @@ class Post < ApplicationRecord
 
   validates :title, :body, presence: true
 
+  scope :desc_order, -> { order(published_at: :desc) }
+
   def author_nickname
     user.nickname
   end
-
-  # def set_published_at
-  #   self.published_at = Time.zone.now
-  #   save
-  # end
 end

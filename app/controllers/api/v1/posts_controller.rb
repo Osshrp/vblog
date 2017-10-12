@@ -1,6 +1,9 @@
 class Api::V1::PostsController < Api::V1::BaseController
+  set_pagination_headers :posts, only: :index
+
   def index
-    @posts = Post.all
+    @posts = Post.paginate(page: params[:page], per_page: params[:per_page])
+      .desc_order
     respond_with(:api, :v1, @posts, each_serializer: PostsListSerializer)
   end
 

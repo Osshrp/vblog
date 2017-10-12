@@ -3,6 +3,6 @@ FactoryGirl.define do
     title "MyString"
     body "MyString"
     user
-    published_at Time.now
+    published_at Date.yesterday
   end
 end

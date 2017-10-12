@@ -9,7 +9,6 @@ RSpec.describe Post, type: :model do
 
   let(:post) { create(:post, published_at: nil) }
 
-
   describe '#author_nickname' do
     it 'returns author nickname' do
       expect(post.author_nickname).to eq(post.user.nickname)

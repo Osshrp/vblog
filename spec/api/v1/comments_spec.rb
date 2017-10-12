@@ -10,7 +10,7 @@ describe 'Comments API' do
     end
 
     context 'authenticated' do
-      let!(:comments) { create_list(:comment, 2, post: my_post) }
+      let!(:comments) { create_list(:comment, 3, post: my_post) }
       let(:access_token) { create(:access_token) }
       before do
         get api_v1_post_comments_path(my_post),

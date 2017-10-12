@@ -10,11 +10,20 @@ describe 'Posts API' do
 
     context 'authenticated' do
       let(:access_token) { create(:access_token) }
-      let!(:posts) { create_list(:post, 2) }
-      let!(:my_post) { posts.first }
+      let!(:posts) { create_list(:post, 5) }
+      let!(:my_post) { posts.last }
       let!(:comment) { create(:comment, post: my_post) }
 
-      before { get '/api/v1/posts', as: :json, params: {access_token: access_token.token} }
+      before do
+        posts.last.published_at = Time.now
+        posts.last.save
+      end
+
+      before {
+                get '/api/v1/posts', as: :json, params: {
+                  access_token: access_token.token, page: '1', per_page: '3'
+                }
+             }
 
       it_behaves_like 'API indexable' do
         let(:resources_name) { 'posts' }
@@ -24,6 +33,26 @@ describe 'Posts API' do
         it "post object contains #{attr}" do
           expect(response.body).
             to be_json_eql(my_post.send(attr.to_sym).to_json).at_path("posts/0/#{attr}")
+        end
+      end
+
+      context 'desc order and pagination' do
+        it 'returns last post on first plase' do
+          expect(JSON.parse(response.body)["posts"][0]["published_at"]
+            .to_date).to eq(Date.today)
+        end
+
+        it 'returns second post in right order' do
+          expect(JSON.parse(response.body)["posts"][1]["published_at"].to_date)
+            .to eq(Date.yesterday)
+        end
+
+        it 'returns total pages in headers' do
+          expect(JSON.parse(response.headers["X-Pagination"])["total_pages"]).to eq(2)
+        end
+
+        it 'returns total per page in headers' do
+          expect(JSON.parse(response.headers["X-Pagination"])["total_entries"]).to eq(5)
         end
       end
 
@@ -108,7 +137,7 @@ describe 'Posts API' do
         expect { post api_v1_posts_path, params }.to change(Post.all, :count).by(1)
       end
 
-      %w(id title body created_at updated_at).each do |attr|
+      %w(id title body published_at created_at updated_at).each do |attr|
         it "post object contains #{attr}" do
           post api_v1_posts_path, params
           expect(response.body).
