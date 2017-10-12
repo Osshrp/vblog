@@ -88,7 +88,7 @@ describe 'Posts API' do
         expect(response).to be_success
       end
 
-      %w(id title body published_at created_at updated_at).each do |attr|
+      %w(id title body published_at author_nickname).each do |attr|
         it "post object contains #{attr}" do
           expect(response.body).
             to be_json_eql(my_post.send(attr.to_sym).to_json).at_path("post/#{attr}")
@@ -137,7 +137,7 @@ describe 'Posts API' do
         expect { post api_v1_posts_path, params }.to change(Post.all, :count).by(1)
       end
 
-      %w(id title body published_at created_at updated_at).each do |attr|
+      %w(id title body author_nickname published_at).each do |attr|
         it "post object contains #{attr}" do
           post api_v1_posts_path, params
           expect(response.body).
