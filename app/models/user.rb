@@ -8,4 +8,6 @@ class User < ApplicationRecord
   has_many :comments
 
   validates :nickname, presence: true
+
+  mount_uploader :avatar, AvatarUploader
 end

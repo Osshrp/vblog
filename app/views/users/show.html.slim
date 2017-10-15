@@ -1,0 +1,8 @@
+= image_tag @user.avatar, alt: 'Avatar', class: 'media-object img-rounded'
+= form_for @user do |f|
+  .caption
+    h3.text-primary Your avatar
+  .form-group
+    = f.file_field :avatar, class: 'form-control'
+  .form-group
+    = f.submit 'Загрузить', class: 'btn btn-primary'

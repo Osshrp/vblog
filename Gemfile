@@ -43,6 +43,10 @@ gem 'responders', '~> 2.0'
 gem 'will_paginate', '~> 3.1.0'
 gem 'doorkeeper'
 gem 'active_model_serializers', '~> 0.10.4'
+gem 'mini_magick'
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+gem 'carrierwave-aws'
+gem 'file_validators'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
