@@ -47,6 +47,7 @@ gem 'mini_magick'
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem 'carrierwave-aws'
 gem 'file_validators'
+gem 'faker'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
