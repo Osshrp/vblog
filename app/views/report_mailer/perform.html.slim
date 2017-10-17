@@ -1,0 +1,12 @@
+h2 Analitic report
+table
+  th Nickname
+  th Email
+  th Posts
+  th Comments
+  - @users.each do |user|
+    tr
+      td= user['nickname']
+      td= user['email']
+      td= user['posts_count']
+      td= user['comments_count']
