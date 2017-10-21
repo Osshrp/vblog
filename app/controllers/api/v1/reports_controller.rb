@@ -1,8 +1,8 @@
-class Api::V1::ReportsController < ApplicationController
+class Api::V1::ReportsController < Api::V1::BaseController
 
   def by_author
-    GenerateReportJob.perform_later(report_params.to_h)
-    respond_with(message: 'Report generation started')
+    GenerateReportJob.perform_now(params[:start_date], params[:end_date], params[:email])
+    render json: { message: "Report generation started" }
   end
 
   private
