@@ -1,5 +1,9 @@
 = image_tag @user.avatar, alt: 'Avatar', class: 'media-object img-rounded'
 = form_for @user do |f|
+  - if @user.errors.any?
+      ul
+      - @user.errors.full_messages.each do |error|
+        li= error
   .caption
     h3.text-primary Ваш аватар
   .form-group

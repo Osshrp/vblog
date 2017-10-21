@@ -7,7 +7,9 @@ class UsersController < ApplicationController
 
   def update
     @user.update(user_params) if params[:user]
-    respond_with(@user)
+    respond_with(@user) do |format|
+       format.html { render :show }
+    end
   end
 
   private

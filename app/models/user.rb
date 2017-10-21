@@ -8,6 +8,10 @@ class User < ApplicationRecord
   has_many :comments
 
   validates :nickname, presence: true
+  validates :avatar, file_size: { less_than: 3.gigabytes },
+                     file_content_type: { allow: ['image/jpeg',
+                                                  'image/jpg',
+                                                  'image/png'] }
 
   mount_uploader :avatar, AvatarUploader
 
