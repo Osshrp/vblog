@@ -1,7 +1,16 @@
 Rails.application.routes.draw do
   use_doorkeeper
   devise_for :users
-  root to: 'posts#index'
+
+  devise_scope :user do
+    authenticated :user do
+      root 'users#show', as: :authenticated_root
+    end
+
+    unauthenticated do
+      root 'devise/sessions#new', as: :unauthenticated_root
+    end
+  end
 
   namespace :api do
     namespace :v1 do
