@@ -28,4 +28,9 @@ CarrierWave.configure do |config|
   # config.aws_signer = -> (unsigned_url, options) do
   #   Aws::CF::Signer.sign_url(unsigned_url, options)
   # end
+
+  if Rails.env.test?
+    config.storage = :file
+    config.enable_processing = false
+  end
 end

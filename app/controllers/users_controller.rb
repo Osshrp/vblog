@@ -1,11 +1,16 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_user, only: [:show, :update]
 
   def show
-    respond_with(current_user)
+    @user ||= current_user
+    respond_with(@user)
   end
 
   def update
-    current_user.update(user_params) if params[:user]
+    if params[:user] && @user == current_user
+      @user.update(user_params)
+    end
     respond_with(current_user) do |format|
        format.html { render :show }
     end
@@ -15,5 +20,9 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:avatar)
+  end
+
+  def set_user
+    @user = User.find(params[:id]) if params[:id]
   end
 end
