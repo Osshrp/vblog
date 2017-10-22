@@ -6,6 +6,10 @@ h2 Sign up
     br/
     = f.email_field :email, autofocus: true, class: "form-control"
   .field
+    = f.label :nickname
+    br/
+    = f.email_field :nickname, class: "form-control"
+  .field
     = f.label :password
     - if @minimum_password_length
       em

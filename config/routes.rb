@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   use_doorkeeper
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'registrations' }
 
   devise_scope :user do
     authenticated :user do
