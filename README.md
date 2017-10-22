@@ -1,24 +1,8 @@
-# README
+# Vblog
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Приложение размещено на [Heroku](https://test-vblog.herokuapp.com)
 
-Things you may want to cover:
+* API
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Для доступа к API небоходимо зарегистрироваться
+и получить token зайдя по ссылке "Добавить приложение"
