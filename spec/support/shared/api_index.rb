@@ -4,6 +4,6 @@ shared_examples_for 'API indexable' do
   end
 
   it 'returns list of resources' do
-    expect(response.body).to have_json_size(2).at_path(resources_name)
+    expect(response.body).to have_json_size(3).at_path(resources_name)
   end
 end

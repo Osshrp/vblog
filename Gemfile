@@ -42,6 +42,14 @@ gem 'twitter-bootstrap-rails'
 gem 'responders', '~> 2.0'
 gem 'will_paginate', '~> 3.1.0'
 gem 'doorkeeper'
+gem 'active_model_serializers', '~> 0.10.4'
+gem 'mini_magick'
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+gem 'carrierwave-aws'
+gem 'file_validators'
+gem 'faker'
+gem 'delayed_job_active_record'
+gem 'daemons'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -65,6 +73,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'capybara'
   gem 'launchy'
+  gem 'json_spec'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

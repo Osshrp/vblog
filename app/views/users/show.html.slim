@@ -1,0 +1,14 @@
+h3.text-primary Аватар
+= image_tag @user.avatar, alt: 'Avatar', class: 'media-object img-rounded'
+= form_for @user do |f|
+  - if @user.errors.any?
+      ul
+      - @user.errors.full_messages.each do |error|
+        li= error
+  .caption
+  - if @user == current_user
+    h4.text-primary Загрузить аватар
+    .form-group
+      = f.file_field :avatar, class: 'form-control'
+    .form-group
+      = f.submit 'Загрузить', class: 'btn btn-primary'

@@ -4,7 +4,7 @@ h2 Forgot your password?
   .field
     = f.label :email
     br/
-    = f.email_field :email, autofocus: true
+    = f.email_field :email, autofocus: true, class: "form-control"
   .actions
-    = f.submit "Send me reset password instructions"
+    = f.submit "Send me reset password instructions", class: 'btn btn-primary'
 = render "devise/shared/links"
