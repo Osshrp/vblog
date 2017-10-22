@@ -83,4 +83,8 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.default_url_options = { host: "80.82.58.3", port: "81" }
+  config.action_mailer.default_options = {from: 'oss@bobrptd.ru'}
 end
