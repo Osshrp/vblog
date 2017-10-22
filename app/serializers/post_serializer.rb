@@ -1,4 +1,4 @@
-class PostsListSerializer < ActiveModel::Serializer
+class PostSerializer < ActiveModel::Serializer
   attributes :id, :title, :body, :published_at, :author_nickname
   has_many :comments
 
